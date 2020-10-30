@@ -1,5 +1,5 @@
 # SPARQL Burger
-SPARQL Burger is a Python SPARQL query builder for programmatically generating SPARQL graph patterns and SPARQL Select and Update queries.
+SPARQL Burger is a **Python SPARQL query builder** that automates the generation of SPARQL graph patterns, SPARQL Select and SPARQL Update queries. Just like stacking onions, tomatos and cheese to assemble the right burger, SPARQL Burger offers the necessary ingredients for the assembly of meaningful SPARQL queries in an OOP manner.
 
 ## Getting Started
 SPARQL Burger is a minimal module for Python (2.x. and 3.x).
