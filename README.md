@@ -21,7 +21,7 @@ None
  ```
 
 ## Usage examples
-**1. Create a SPARQL graph pattern and add some triples**
+### 1. Create a SPARQL graph pattern and add some triples
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -48,7 +48,7 @@ The printout is:
 ```
 At this point we have generated a minimal [SPARQL graph pattern](http://https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
 
-**2. Create an optional pattern and nest it to the main pattern**
+### 2. Create an optional pattern and nest it to the main pattern
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -87,8 +87,7 @@ The printout is:
 ```
 In this case, the main graph pattern contains another graph pattern that is declared as OPTIONAL. In general, graph patterns can contain as many nesting levels as necessary. Nesting a pattern to itself, though, would result to an error.
 
-**3. Create a UNION of graph patterns**
-
+### 3. Create a UNION of graph patterns
 In this example we will declare a main graph pattern that contains two other graph patterns associated with UNION.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
@@ -136,8 +135,7 @@ The printout is:
 }
 ```
 
-**4. Adding FILTER, BIND and IF definitions**
-
+### 4. Adding FILTER, BIND and IF definitions
 OK, this far we have created simple and nested graph patterns. Now let's see how to add filters, bindings and if clauses.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
@@ -236,8 +234,7 @@ The printout is:
 }
 ```
 
-**5. Create a SPARQL Select query**
-
+### 5. Create a SPARQL Select query
 Now that we have mastered the definition of graph patterns, let's create a simple Select query.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
@@ -290,8 +287,7 @@ GROUP BY ?age
 LIMIT 100
 ```
 
-**6. Create a SPARQL Update query**
-
+### 6. Create a SPARQL Update query
 Quite similarly we can exploit graph patterns to create a SPARQL Update query (in the DELETE/INSERT form)
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
