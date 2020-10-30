@@ -22,6 +22,9 @@ None
 
 ## Usage examples
 ### 1. Create a SPARQL graph pattern and add some triples
+<details>
+ <summary>Click to view example</summary>
+
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -47,6 +50,7 @@ The printout is:
 }
 ```
 At this point we have generated a minimal [SPARQL graph pattern](http://https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
+</details>
 
 ### 2. Create an optional pattern and nest it to the main pattern
 ```python
