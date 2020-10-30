@@ -22,6 +22,8 @@ None
 
 ## Usage examples
 ### 1. Create a SPARQL graph pattern and add some triples
+In this example we generate a minimal [SPARQL graph pattern](http://https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
+
 <details>
  <summary>Show example</summary>
 
@@ -49,10 +51,11 @@ The printout is:
    ?person ex:hasName ?name . 
 }
 ```
-At this point we have generated a minimal [SPARQL graph pattern](http://https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
 </details>
 
-### 2. Create an optional pattern and nest it to the main pattern
+### 2. Create an OPTIONAL pattern and nest it to the main pattern
+Here, the main graph pattern contains another graph pattern that is declared as OPTIONAL. In general, graph patterns can contain as many nesting levels as necessary. Nesting a pattern to itself, though, would result to an error.
+
 <details>
  <summary>Show example</summary>
 
@@ -92,14 +95,14 @@ The printout is:
    }
 }
 ```
-In this case, the main graph pattern contains another graph pattern that is declared as OPTIONAL. In general, graph patterns can contain as many nesting levels as necessary. Nesting a pattern to itself, though, would result to an error.
 </details>
 
 ### 3. Create a UNION of graph patterns
+In this example we will declare a main graph pattern that contains two other graph patterns associated with UNION.
+
 <details>
  <summary>Show example</summary>
 
-In this example we will declare a main graph pattern that contains two other graph patterns associated with UNION.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -148,10 +151,11 @@ The printout is:
 </details>
 
 ### 4. Adding FILTER, BIND and IF definitions
+So far we have created simple and nested graph patterns. Now let's see how to add filters, bindings and if clauses.
+
 <details>
  <summary>Show example</summary>
 
-So far we have created simple and nested graph patterns. Now let's see how to add filters, bindings and if clauses.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -251,10 +255,11 @@ The printout is:
 </details>
 
 ### 5. Create a SPARQL Select query
+Now that we have mastered the definition of graph patterns, let's create a simple Select query.
+
 <details>
  <summary>Show example</summary>
 
-Now that we have mastered the definition of graph patterns, let's create a simple Select query.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
@@ -308,10 +313,11 @@ LIMIT 100
 </details>
 
 ### 6. Create a SPARQL Update query
+Quite similarly we can exploit graph patterns to create a SPARQL Update query (in the DELETE/INSERT form).
+
 <details>
  <summary>Show example</summary>
 
-Quite similarly we can exploit graph patterns to create a SPARQL Update query (in the DELETE/INSERT form)
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
