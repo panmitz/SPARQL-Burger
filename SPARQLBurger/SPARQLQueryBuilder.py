@@ -1,8 +1,8 @@
 """
-SPARQL Burger - A Python SPARQL query builder for programmatically generating SPARQL graph patterns and queries..
+SPARQL Burger - A Python SPARQL query builder for programmatically generating SPARQL graph patterns and queries.
 Version 0.1
-Official webpage: http://pmitzias.com/SPARQL_Query_Builder
-Documentation: http://pmitzias.com/SPARQL_Query_Builder/docs.html
+Official webpage: http://pmitzias.com/SPARQLBurger
+Documentation: http://pmitzias.com/SPARQLBurger/docs.html
 Created by Panos Mitzias (http://www.pmitzias.com), Efstratios Kontopoulos (http://www.stratoskontopoulos.com)
 Powered by Catalink Ltd (http://catalink.eu)
 """
@@ -259,7 +259,8 @@ class SPARQLSelectQuery(SPARQLQuery):
             query_text += "\n%sWHERE " % (outer_indentation, )
 
             # Add WHERE pattern graph
-            query_text += self.where.get_text(indentation_depth=indentation_depth)[:-1]
+            if self.where is not None:
+                query_text += self.where.get_text(indentation_depth=indentation_depth)[:-1]
 
             # Add group by expressions
             for group in self.group_by:
@@ -366,20 +367,10 @@ if __name__ == "__main__":
 
     # Add a triple
     pattern.add_triples(
-        triples=[Triple(
-            subject="?person",
-            predicate="rdf:type",
-            object="ex:Person"
-        )]
-    )
-
-    # Add a second triple
-    pattern.add_triples(
-        triples=[Triple(
-            subject="?person",
-            predicate="ex:hasName",
-            object="?name"
-        )]
+        triples=[
+            Triple(subject="?person", predicate="rdf:type", object="ex:Person"),
+            Triple(subject="?person", predicate="ex:hasName", object="?name")
+        ]
     )
 
     # Create a second graph pattern that should be OPTIONAL
@@ -387,15 +378,15 @@ if __name__ == "__main__":
 
     # Add a triple to the optional graph pattern
     optional_pattern.add_triples(
-        triples=[Triple(
-            subject="?person",
-            predicate="ex:hasAge",
-            object="?age"
-        )]
+        triples=[
+            Triple(subject="?person", predicate="ex:hasAge", object="?age")
+        ]
     )
 
-    # Αδδ optional graph pattern as nested to the main graph pattern
+    # Add optional graph pattern as nested to the main graph pattern
     pattern.add_nested_graph_pattern(optional_pattern)
+
+    print(pattern.get_text())
 
     # Add some binding (BIND clause) to the main pattern.
     pattern.add_binding(
@@ -427,7 +418,7 @@ if __name__ == "__main__":
     )
 
     # Print the graph query text
-    print(pattern.get_text())
+    # print(pattern.get_text())
 
     # Create a select query
     select_query = SPARQLSelectQuery(
@@ -480,7 +471,7 @@ if __name__ == "__main__":
     # )
 
     # Print the query text
-    print(select_query.get_text())
+    # print(select_query.get_text())
 
     #########################################
     # delete_pattern = SPARQLGraphPattern()
