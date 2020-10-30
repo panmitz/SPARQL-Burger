@@ -96,6 +96,9 @@ In this case, the main graph pattern contains another graph pattern that is decl
 </details>
 
 ### 3. Create a UNION of graph patterns
+<details>
+ <summary>Show example</summary>
+
 In this example we will declare a main graph pattern that contains two other graph patterns associated with UNION.
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
@@ -142,6 +145,7 @@ The printout is:
    }
 }
 ```
+</details>
 
 ### 4. Adding FILTER, BIND and IF definitions
 <details>
