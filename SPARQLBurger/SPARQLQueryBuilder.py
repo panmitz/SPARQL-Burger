@@ -8,7 +8,7 @@ Powered by Catalink Ltd (http://catalink.eu)
 """
 
 
-from SPARQLSyntaxTerms import *
+from SPARQLBurger.SPARQLSyntaxTerms import *
 
 
 class SPARQLGraphPattern:
