@@ -153,12 +153,16 @@ class SPARQLGraphPattern:
 
 
 class SPARQLQuery:
-    def __init__(self):
+    def __init__(self, include_popular_prefixes=False):
         """
         The SPARQLQuery class constructor.
+        :param include_popular_prefixes: <bool> If True, a list of popular namespaces will be added automatically
         """
         self.prefixes = []
         self.where = None
+
+        if include_popular_prefixes:
+            self.add_popular_prefixes()
 
     def add_prefix(self, prefix):
         """
@@ -171,6 +175,24 @@ class SPARQLQuery:
             return True
         else:
             return False
+
+    def add_popular_prefixes(self):
+        popular_prefixes = {
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "xml": "http://www.w3.org/2001/XMLSchema#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "prov": "http://www.w3.org/ns/prov#",
+            "foaf": "http://xmlns.com/foaf/0.1/"
+        }
+
+        for prefix in popular_prefixes:
+            self.add_prefix(
+                prefix=Prefix(
+                    prefix=prefix,
+                    namespace=popular_prefixes[prefix]
+                )
+            )
 
     def set_where_pattern(self, graph_pattern):
         """
@@ -186,13 +208,13 @@ class SPARQLQuery:
 
 
 class SPARQLSelectQuery(SPARQLQuery):
-    def __init__(self, distinct=False, limit=False):
+    def __init__(self, distinct=False, limit=False, include_popular_prefixes=False):
         """
         The SPARQLSelectQuery class constructor.
         :param distinct: <bool> Indicates if the select should be SELECT DISTINCT.
         :param limit: <int> A limit to be used for the select query results.
         """
-        SPARQLQuery.__init__(self)
+        SPARQLQuery.__init__(self, include_popular_prefixes)
 
         self.distinct = distinct
         self.limit = limit
@@ -278,11 +300,11 @@ class SPARQLSelectQuery(SPARQLQuery):
 
 
 class SPARQLUpdateQuery(SPARQLQuery):
-    def __init__(self):
+    def __init__(self, include_popular_prefixes=False):
         """
         The SPARQLUpdateQuery class constructor.
         """
-        SPARQLQuery.__init__(self)
+        SPARQLQuery.__init__(self, include_popular_prefixes)
         self.delete = None
         self.insert = None
 
