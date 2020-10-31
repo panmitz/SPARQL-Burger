@@ -3,7 +3,7 @@ SPARQL Burger - A Python SPARQL query builder for programmatically generating SP
 Version 0.1
 Official webpage: http://pmitzias.com/SPARQLBurger
 Documentation: http://pmitzias.com/SPARQLBurger/docs.html
-Created by Panos Mitzias (http://www.pmitzias.com), Efstratios Kontopoulos (http://www.stratoskontopoulos.com)
+Created by Panos Mitzias (http://www.pmitzias.com)
 Powered by Catalink Ltd (http://catalink.eu)
 """
 
