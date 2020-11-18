@@ -166,7 +166,7 @@ class SPARQLQuery:
 
     def add_prefix(self, prefix):
         """
-        Adds a PREFIX expression to the graph pattern.
+        Adds a PREFIX expression to the query.
         :param prefix: <obj> The Prefix object to be added.
         :return: <bool> True if addition succeeded, False if given argument was not a Prefix object.
         """

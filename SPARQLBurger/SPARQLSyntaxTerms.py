@@ -106,7 +106,7 @@ class Binding:
 class Bound:
     def __init__(self, variable):
         """
-        The Binding class constructor.
+        The Bound class constructor.
         :param variable: <str> The variable to be checked if it is bound (e.g. "?name")
          OR <obj> Another object to be nested.
         """
@@ -133,7 +133,7 @@ class Bound:
 class IfClause:
     def __init__(self, condition, true_value, false_value):
         """
-        The Binding class constructor.
+        The IfClause class constructor.
         :param condition: <str> The condition for the IF clause OR <obj> Another object to be nested.
         :param true_value: <str> The value for when IF condition is True OR <obj> Another object to be nested.
         :param false_value: <str> The value for when IF condition is False OR <obj> Another object to be nested.
