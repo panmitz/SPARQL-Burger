@@ -391,4 +391,4 @@ WHERE {
 ## Applications
 SPARQL Burger has been deployed in the following projects:
 
-* [CASPAR](https://www.linkedin.com/showcase/caspar-framework)
+* [CASPAR Framework](https://www.linkedin.com/showcase/caspar-framework)
