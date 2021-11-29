@@ -73,6 +73,24 @@ class Filter:
             print("Error 1 @ Filter.get_text()")
             return ""
 
+class Having:
+    def __init__(self, expression):
+        """
+        The Having class constructor.
+        :param expression: <str> The expression to get in the having filter (e.g. "?age > 30")
+        """
+        self.expression = expression
+
+    def get_text(self):
+        """
+        Generates the text for the given having filter.
+        :return: <str> The filter definition text. Returns empty string if an exception was raised.
+        """
+        try:
+            return "HAVING (%s)" % (self.expression,)
+        except Exception as e:
+            print("Error 1 @ Filter.get_text()")
+            return ""
 
 class Binding:
     def __init__(self, value, variable):

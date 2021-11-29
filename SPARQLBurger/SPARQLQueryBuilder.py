@@ -73,6 +73,18 @@ class SPARQLGraphPattern:
         else:
             return False
 
+    def add_having(self, filter):
+        """
+        Adds a HAVING expression to the graph pattern.
+        :param filter: <obj> The HAVING expression to be added.
+        :return: <bool> True if addition succeeded, False if given argument was not a Having object.
+        """
+        if type(filter) is Having:
+            self.filters.append(filter)
+            return True
+        else:
+            return False
+
     def add_binding(self, binding):
         """
         Adds a BIND expression to the graph pattern.
