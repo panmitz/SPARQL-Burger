@@ -381,6 +381,19 @@ WHERE {
 ```
 </details>
 
+## Tests
+To run the tests, install `pytest` via
+
+```shell
+pip install pytest
+```
+
+Subsequently run
+
+```shell
+pytest
+```
+
 ## Documentation
 [The official webpage](http://pmitzias.com/SPARQLBurger) - [The Docs](http://pmitzias.com/SPARQLBurger/docs.html)
 
