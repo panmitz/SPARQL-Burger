@@ -381,6 +381,43 @@ WHERE {
 ```
 </details>
 
+
+### 7. Reference multiple URIs with VALUES
+By defining a VALUES, it is possible to reference multiple URIs by a single variable name
+
+<details>
+ <summary>Show example</summary>
+ 
+```python
+from SPARQLBurger.SPARQLQueryBuilder import *
+
+pattern = SPARQLGraphPattern()
+
+uris = ["https://www.wikidata.org/entity/Q42",
+        "https://www.wikidata.org/entity/Q46248"]
+pattern.add_value(value=Values(values=uris, name="?friend"))
+
+pattern.add_triples(
+    triples=[
+        Triple(subject="?person", predicate="rdf:type", object="ex:Person"),
+        Triple(subject="?person", predicate="foaf:knows", object="?friend")
+    ]
+)
+
+# Print the query we have defined
+print(pattern.get_text())
+```
+
+The printout is:
+```
+{
+ VALUES ?friend {<https://www.wikidata.org/entity/Q42> <https://www.wikidata.org/entity/Q46248>}
+ ?person rdf:type ex:Person . 
+ ?person foaf:knows ?friend . 
+}
+```
+</details>
+
 ## Tests
 To run the tests, install `pytest` via
 

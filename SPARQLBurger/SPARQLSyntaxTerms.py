@@ -194,3 +194,40 @@ class GroupBy:
             return ""
 
 
+class Values:
+    def __init__(self, values, name):
+        """
+        The Values class constructor.
+        :param values: <list> A list of variables as strings that should be
+                                gathered under the same variable.
+        :param name: <str> The name of the resulting variable.
+        """
+        self.values = values
+        self.name = name
+
+    def get_text(self):
+        """
+        Generate the text for the given VALUES expression (e.g.
+        "VALUES ?person {<"https://www.wikidata.org/entity/42">}
+        :return: <str> The VALUES defenition text. Returns empty string if an
+                        exception was raised.
+        """
+        try:
+            enclosed_values = [in_brackets(value) for value in self.values]
+            return f"VALUES {self.name} {{{' '.join(enclosed_values)}}}"
+        except Exception as e:
+            print("Error 1 @ Values.get_text()")
+            return ""
+
+
+def in_brackets(uri: str) -> str:
+    """Encloses a given URI in brackets (i.e. "<" and ">").
+    If the uri already has brackets, nothing happens.
+    :returns: <str> A URI string enclosed in brackets.
+    """
+    if uri.startswith("<"):
+        return uri
+    elif uri.startswith("http"):
+        return f"<{uri}>"
+    else:
+        return uri
