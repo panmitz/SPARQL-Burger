@@ -118,7 +118,7 @@ class SPARQLGraphPattern:
                 query_text = "%s{\n" % (outer_indentation, )
 
             for value in self.values:
-                query_text += f"{inner_indentation}{value.get_text()}\n"
+                query_text += "%s%s\n" % (inner_indentation, value.get_text())
 
             # Add triples
             for entry in self.graph:

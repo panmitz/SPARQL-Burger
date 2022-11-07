@@ -214,7 +214,7 @@ class Values:
         """
         try:
             enclosed_values = [in_brackets(value) for value in self.values]
-            return f"VALUES {self.name} {{{' '.join(enclosed_values)}}}"
+            return "VALUES %s {%s}" % (self.name, ' '.join(enclosed_values))
         except Exception as e:
             print("Error 1 @ Values.get_text()")
             return ""
@@ -228,6 +228,6 @@ def in_brackets(uri: str) -> str:
     if uri.startswith("<"):
         return uri
     elif uri.startswith("http"):
-        return f"<{uri}>"
+        return "<%s>" % uri
     else:
         return uri
