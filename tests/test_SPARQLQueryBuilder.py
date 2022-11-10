@@ -1,7 +1,8 @@
 import re
 
 from SPARQLBurger.SPARQLQueryBuilder import SPARQLGraphPattern, SPARQLSelectQuery, SPARQLUpdateQuery
-from SPARQLBurger.SPARQLSyntaxTerms import Triple, Binding, IfClause, Filter, Bound, Prefix, GroupBy
+from SPARQLBurger.SPARQLSyntaxTerms import Triple, Binding, IfClause, Filter, Bound, \
+    Prefix, GroupBy, Values
 
 
 class TestSparqlQueryBuilder:
@@ -66,6 +67,25 @@ class TestSparqlQueryBuilder:
         assert generate_assert_string(main_pattern) == \
             "{\n {\n ?person rdf:type ex:Person . \n ?person ex:hasName ?name . \n }\n UNION\n" \
             " {\n ?person rdf:type ex:User . \n ?person ex:hasNickname ?name . \n }\n}\n"
+
+    def test_values(self):
+        pattern = SPARQLGraphPattern()
+
+        uris = ["https://www.wikidata.org/entity/42",
+                "https://www.wikidata.org/entity/108"]
+        pattern.add_value(value=Values(values=uris, name="?friend"))
+
+        pattern.add_triples(
+            triples=[
+                Triple(subject="?person", predicate="rdf:type", object="ex:Person"),
+                Triple(subject="?person", predicate="foaf:knows", object="?friend")
+            ]
+        )
+
+        assert generate_assert_string(pattern) == \
+               "{\n VALUES ?friend {<https://www.wikidata.org/entity/42> " \
+               "<https://www.wikidata.org/entity/108>}\n" \
+               " ?person rdf:type ex:Person . \n ?person foaf:knows ?friend . \n}\n"
 
     def test_filter_bind_and_if_clauses(self):
         pattern = SPARQLGraphPattern()

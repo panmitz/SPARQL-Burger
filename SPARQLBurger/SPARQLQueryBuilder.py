@@ -24,6 +24,7 @@ class SPARQLGraphPattern:
         self.graph = []
         self.filters = []
         self.bindings = []
+        self.values = []
 
     def add_triples(self, triples):
         """
@@ -97,6 +98,18 @@ class SPARQLGraphPattern:
         else:
             return False
 
+    def add_value(self, value):
+        """
+        Adds a VALUES expression to the graph pattern.
+        :param value: <Value> A Value object to be added.
+        :return: <bool> True if addition succeeded, False otherwise.
+        """
+        if isinstance(value, Values):
+            self.values.append(value)
+            return True
+        else:
+            return False
+
     def get_text(self, indentation_depth=0):
         """
         Generates the text for the SPARQL graph pattern.
@@ -115,6 +128,9 @@ class SPARQLGraphPattern:
                 query_text = "%sUNION\n%s{\n" % (outer_indentation, outer_indentation)
             else:
                 query_text = "%s{\n" % (outer_indentation, )
+
+            for value in self.values:
+                query_text += "%s%s\n" % (inner_indentation, value.get_text())
 
             # Add triples
             for entry in self.graph:
