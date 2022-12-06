@@ -437,8 +437,3 @@ pytest
 ## Authors
 * [Panos Mitzias](http://pmitzias.com) - Design and development
 * [Stratos Kontopoulos](http://stratoskontopoulos.com) - Contribution to the design
-
-## Applications
-SPARQL Burger has been deployed in the following projects:
-
-* [CASPAR Framework](https://www.linkedin.com/showcase/caspar-framework)
