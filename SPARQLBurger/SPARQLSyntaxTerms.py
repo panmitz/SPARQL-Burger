@@ -29,6 +29,29 @@ class Prefix:
             print("Error 1 @ Prefix.get_text()")
             return ""
 
+  
+class Variable:
+    def __init__(self, variable):
+        """
+        The Variable class constructor.
+        :param variable: <str> SPARQL VARIABLE (e.g. "?ex").
+        """
+        self.variable = variable.lower()
+        
+
+    def get_text(self):
+        """
+        Generates the text for the given variable (e.g. "?s ?o ?p") 
+        :return: <str> The variable definition for SPARQL query. Returns empty string if an exception was raised.
+        """
+        try:
+            return " ?%s" % (self.variable,)
+        
+        except Exception as e:
+            print("Error 1 @ Variable.get_text()")
+            return ""
+
+
 
 class Triple:
     def __init__(self, subject, predicate, object):
