@@ -236,7 +236,7 @@ class SPARQLQuery:
 
 
 class SPARQLSelectQuery(SPARQLQuery):
-    def __init__(self, distinct=False, limit=False, include_popular_prefixes=False):
+    def __init__(self, distinct=False, limit=False, include_popular_prefixes=False, offset=0):
         """
         The SPARQLSelectQuery class constructor.
         :param distinct: <bool> Indicates if the select should be SELECT DISTINCT.
@@ -246,6 +246,7 @@ class SPARQLSelectQuery(SPARQLQuery):
 
         self.distinct = distinct
         self.limit = limit
+        self.offset = offset
         self.variables = []
         self.group_by = []
 
@@ -319,6 +320,11 @@ class SPARQLSelectQuery(SPARQLQuery):
             # Add limit if required
             if self.limit:
                 query_text += "\nLIMIT %s" % (str(self.limit))
+            
+            # Add offset if required
+            if self.offset > 0:
+                query_text += "\nOFFSET %s" % (str(self.offset))
+
 
             return query_text
 

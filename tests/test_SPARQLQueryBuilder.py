@@ -162,8 +162,44 @@ class TestSparqlQueryBuilder:
         assert generate_assert_string(pattern) == \
             "{\n ?person rdf:type ex:Person . \n BIND (IF (BOUND (?address), ?address, 'Unknown') AS ?address)\n}\n"
 
+    def test_sparql_select_query_without_limit_offset(self):
+        select_query = SPARQLSelectQuery(distinct=True)
+
+        # Add a prefix
+        select_query.add_prefix(
+            prefix=Prefix(prefix="ex", namespace="http://www.example.com#")
+        )
+
+        # Add the variables we want to select
+        select_query.add_variables(variables=["?person", "?age"])
+
+        # Create a graph pattern to use for the WHERE part and add some triples
+        where_pattern = SPARQLGraphPattern()
+        where_pattern.add_triples(
+            triples=[
+                Triple(subject="?person", predicate="rdf:type", object="ex:Person"),
+                Triple(subject="?person", predicate="ex:hasAge", object="?age"),
+                Triple(subject="?person", predicate="ex:address", object="?address"),
+            ]
+        )
+
+        # Set this graph pattern to the WHERE part
+        select_query.set_where_pattern(graph_pattern=where_pattern)
+
+        # Group the results by age
+        select_query.add_group_by(
+            group=GroupBy(
+                variables=["?age"]
+            )
+        )
+
+        assert generate_assert_string(select_query) == \
+            "PREFIX ex: <http://www.example.com#>\n\nSELECT DISTINCT ?person ?age\nWHERE {\n" \
+            " ?person rdf:type ex:Person . \n ?person ex:hasAge ?age . \n ?person ex:address ?address . \n}\n" \
+            "GROUP BY ?age" 
+    
     def test_sparql_select_query(self):
-        select_query = SPARQLSelectQuery(distinct=True, limit=100)
+        select_query = SPARQLSelectQuery(distinct=True, limit=100, offset=100)
 
         # Add a prefix
         select_query.add_prefix(
@@ -197,8 +233,9 @@ class TestSparqlQueryBuilder:
             "PREFIX ex: <http://www.example.com#>\n\nSELECT DISTINCT ?person ?age\nWHERE {\n" \
             " ?person rdf:type ex:Person . \n ?person ex:hasAge ?age . \n ?person ex:address ?address . \n}\n" \
             "GROUP BY ?age\n" \
-            "LIMIT 100"
-
+            "LIMIT 100\n" \
+            "OFFSET 100"
+        
     def test_sparql_update_query(self):
         update_query = SPARQLUpdateQuery()
 
