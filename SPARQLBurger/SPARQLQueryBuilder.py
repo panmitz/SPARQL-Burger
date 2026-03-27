@@ -335,7 +335,7 @@ class SPARQLSelectQuery(SPARQLQuery):
             
             # Add order by if required
             if len(self.order_by) > 0:
-                query_text += "\nORDER BY "
+                query_text += "\n%sORDER BY" % (outer_indentation, )
                 for order in self.order_by:
                     query_text += " %s" % (order.get_text(), )
 

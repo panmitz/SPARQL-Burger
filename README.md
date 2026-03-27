@@ -266,7 +266,7 @@ Now that we have mastered the definition of graph patterns, let's create a simpl
 from SPARQLBurger.SPARQLQueryBuilder import *
 
 # Create an object of class SPARQLSelectQuery and set the limit for the results to 100,
-# the OFFSET to 0 (which is the default) and the ORDER BY to DESC(?age) and ASC(?person)
+# the OFFSET to 0 (which is the default)
 select_query = SPARQLSelectQuery(distinct=True, limit=100, offset=0)
 
 # Add a prefix
