@@ -24,7 +24,7 @@ None
 
 ## Usage examples
 ### 1. Create a SPARQL graph pattern and add some triples
-In this example we generate a minimal [SPARQL graph pattern](http://https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
+In this example we generate a minimal [SPARQL graph pattern](https://www.w3.org/TR/rdf-sparql-query/#GraphPattern "SPARQL graph pattern"). A graph pattern, delimited with `{ }`, is a building block for SPARQL queries and more than one can be nested and/or united to form a more complex graph pattern.
 
 <details>
  <summary>Show example</summary>
