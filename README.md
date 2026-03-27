@@ -265,8 +265,9 @@ Now that we have mastered the definition of graph patterns, let's create a simpl
 ```python
 from SPARQLBurger.SPARQLQueryBuilder import *
 
-# Create an object of class SPARQLSelectQuery and set the limit for the results to 100
-select_query = SPARQLSelectQuery(distinct=True, limit=100)
+# Create an object of class SPARQLSelectQuery and set the limit for the results to 100,
+# the OFFSET to 0 (which is the default)
+select_query = SPARQLSelectQuery(distinct=True, limit=100, offset=0)
 
 # Add a prefix
 select_query.add_prefix(
@@ -285,6 +286,18 @@ where_pattern.add_triples(
             Triple(subject="?person", predicate="ex:address", object="?address"),
         ]
     )
+
+select_query.add_order_by(
+    OrderBy(
+        variables=["?age"],
+        descending=True
+    )
+)
+select_query.add_order_by(
+    OrderBy(
+        variables=["?person"]
+    )
+)
 
 # Set this graph pattern to the WHERE part
 select_query.set_where_pattern(graph_pattern=where_pattern)
@@ -310,6 +323,8 @@ WHERE {
    ?person ex:address ?address . 
 }
 GROUP BY ?age
+ORDER BY DESC(?age) ASC(?person)
+OFFSET 0
 LIMIT 100
 ```
 </details>

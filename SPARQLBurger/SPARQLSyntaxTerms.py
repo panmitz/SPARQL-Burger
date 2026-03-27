@@ -210,6 +210,31 @@ class GroupBy:
         except Exception as e:
             print("Error 1 @ GroupBy.get_text()")
             return ""
+        
+
+class OrderBy:
+    def __init__(self, variables, descending=False):
+        """
+        The OrderBy class constructor.
+        :param variables: <list> A list of variables as strings that will be used for the ordering
+        :param descending: <bool> True if the ordering should be done in descending order
+        """
+        self.variables = variables
+        self.descending = descending
+        self.order = "DESC" if descending else "ASC"
+    
+    def get_text(self):
+        """
+        Generates the text for the given ORDER BY expression (e.g. "ORDER BY ?person ?age")
+        :return: <str> The ORDER BY definition text. Returns empty string if an exception was raised.
+        """
+        try:
+            order_text = " ".join(self.variables)
+            return "%s(%s)" % (self.order, order_text)
+
+        except Exception as e:
+            print("Error 1 @ OrderBy.get_text()")
+            return ""
 
 
 class Values:

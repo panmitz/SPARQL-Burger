@@ -2,7 +2,7 @@ import re
 
 from SPARQLBurger.SPARQLQueryBuilder import SPARQLGraphPattern, SPARQLSelectQuery, SPARQLUpdateQuery
 from SPARQLBurger.SPARQLSyntaxTerms import Triple, Binding, IfClause, Filter, Bound, \
-    Prefix, GroupBy, Values
+    Prefix, GroupBy, Values, OrderBy
 
 
 class TestSparqlQueryBuilder:
@@ -229,10 +229,24 @@ class TestSparqlQueryBuilder:
             )
         )
 
+        # Order the results by age DESC and then by person ASC
+        select_query.add_order_by(
+            OrderBy(
+                variables=["?age"],
+                descending=True
+            )
+        )
+        select_query.add_order_by(
+            OrderBy(
+                variables=["?person"]
+            )
+        )
+
         assert generate_assert_string(select_query) == \
             "PREFIX ex: <http://www.example.com#>\n\nSELECT DISTINCT ?person ?age\nWHERE {\n" \
             " ?person rdf:type ex:Person . \n ?person ex:hasAge ?age . \n ?person ex:address ?address . \n}\n" \
             "GROUP BY ?age\n" \
+            "ORDER BY DESC(?age) ASC(?person)\n" \
             "LIMIT 100\n" \
             "OFFSET 100"
         

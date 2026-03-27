@@ -241,6 +241,9 @@ class SPARQLSelectQuery(SPARQLQuery):
         The SPARQLSelectQuery class constructor.
         :param distinct: <bool> Indicates if the select should be SELECT DISTINCT.
         :param limit: <int> A limit to be used for the select query results.
+        :param include_popular_prefixes: <bool> If True, a list of popular namespaces will be added automatically
+        :param offset: <int> An offset to be used for the select query results.
+        :param order_by: <obj> An OrderBy object to be used for ordering the results.
         """
         SPARQLQuery.__init__(self, include_popular_prefixes)
 
@@ -249,6 +252,7 @@ class SPARQLSelectQuery(SPARQLQuery):
         self.offset = offset
         self.variables = []
         self.group_by = []
+        self.order_by = []
 
     def add_variables(self, variables):
         """
@@ -270,6 +274,18 @@ class SPARQLSelectQuery(SPARQLQuery):
         """
         if type(group) is GroupBy:
             self.group_by.append(group)
+            return True
+        else:
+            return False
+        
+    def add_order_by(self, order_by):
+        """
+        Adds an ORDER BY expression to the query
+        :param order_by: <obj> The OrderBy object to be added
+        :return: <bool> True if addition succeeded, False if given argument was not a OrderBy object.
+        """
+        if type(order_by) is OrderBy:
+            self.order_by.append(order_by)
             return True
         else:
             return False
@@ -316,6 +332,12 @@ class SPARQLSelectQuery(SPARQLQuery):
             # Add group by expressions
             for group in self.group_by:
                 query_text += "\n%s%s" % (outer_indentation, group.get_text())
+            
+            # Add order by if required
+            if len(self.order_by) > 0:
+                query_text += "\n%sORDER BY" % (outer_indentation, )
+                for order in self.order_by:
+                    query_text += " %s" % (order.get_text(), )
 
             # Add limit if required
             if self.limit > 0:
@@ -324,7 +346,6 @@ class SPARQLSelectQuery(SPARQLQuery):
             # Add offset if required
             if self.offset > 0:
                 query_text += "\nOFFSET %s" % (str(self.offset))
-
 
             return query_text
 
